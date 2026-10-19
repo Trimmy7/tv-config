@@ -1,0 +1,168 @@
+[
+  {
+    "name": "⚡量子",
+    "api": "https://cj.lziapi.com/api.php/provide/vod/from/lzm3u8/"
+  },
+  {
+    "name": "⚡非凡",
+    "api": "https://cj.ffzyapi.com/api.php/provide/vod/from/ffm3u8/"
+  },
+  {
+    "name": "🎬电影天堂",
+    "api": "http://caiji.dyttzyapi.com/api.php/provide/vod/from/dyttm3u8/"
+  },
+  {
+    "name": "🔍360资源",
+    "api": "https://360zyzz.com/api.php/provide/vod/"
+  },
+  {
+    "name": "🐯虎牙",
+    "api": "https://www.huyaapi.com/api.php/provide/vod/from/hym3u8/"
+  },
+  {
+    "name": "🦊火狐",
+    "api": "https://hhzyapi.com/api.php/provide/vod/from/hhm3u8/"
+  },
+  {
+    "name": "🦅金鹰",
+    "api": "https://jyzyapi.com/api.php/provide/vod/from/jinyingm3u8/"
+  },
+  {
+    "name": "🐂红牛",
+    "api": "https://www.hongniuzy2.com/api.php/provide/vod/from/hnm3u8/"
+  },
+  {
+    "name": "💨光速",
+    "api": "https://api.guangsuapi.com/api.php/provide/vod/from/gsm3u8/"
+  },
+  {
+    "name": "🚀速播",
+    "api": "https://subocaiji.com/api.php/provide/vod/from/subm3u8/"
+  },
+  {
+    "name": "🌊新浪",
+    "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod/from/xlm3u8/"
+  },
+  {
+    "name": "🔷U酷",
+    "api": "https://api.ukuapi88.com/api.php/provide/vod/from/ukm3u8/"
+  },
+  {
+    "name": "🌪暴风",
+    "api": "https://bfzyapi.com/api.php/provide/vod/"
+  },
+  {
+    "name": "🏁极速",
+    "api": "https://jszyapi.com/api.php/provide/vod/from/jsm3u8/"
+  },
+  {
+    "name": "🔵百度",
+    "api": "https://api.apibdzy.com/api.php/provide/vod/"
+  },
+  {
+    "name": "📂茅台(浏览)",
+    "api": "https://caiji.maotaizy.cc/api.php/provide/vod/from/mtm3u8/"
+  },
+  {
+    "name": "📂豆瓣(浏览)",
+    "api": "https://caiji.dbzy5.com/api.php/provide/vod/from/dbm3u8/"
+  },
+  {
+    "name": "📂快车(浏览)",
+    "api": "https://caiji.kuaichezy.org/api.php/provide/vod/"
+  },
+  {
+    "name": "📂闪电(浏览)",
+    "api": "https://xsd.sdzyapi.com/api.php/provide/vod/"
+  },
+  {
+    "api": "https://api.apilyzy.com/api.php/provide/vod/",
+    "name": "🔞老鸭资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://www.xrbsp.com/api/json.php",
+    "name": "🔞淫水机资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "http://fhapi9.com/api.php/provide/vod/",
+    "name": "🔞番号资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://155api.com/api.php/provide/vod/",
+    "name": "🔞155资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://155api.com/api.php/provide/vod/at/json",
+    "name": "🔞155资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://jkunzyapi.com/api.php/provide/vod/",
+    "name": "🔞鸡坤资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://www.pgxdy.com/api/json.php",
+    "name": "🔞黄AV资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://www.gdlsp.com/api/json.php",
+    "name": "🔞香奶儿资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://www.msnii.com/api/json.php",
+    "name": "🔞美少女资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://www.kxgav.com/api/json.php",
+    "name": "🔞白嫖资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://lbapi9.com/api.php/provide/vod/",
+    "name": "🔞乐播资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://lbapi9.com/api.php/provide/vod/at/json",
+    "name": "🔞乐播资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://api.ddapi.cc/api.php/provide/vod/",
+    "name": "🔞滴滴资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://api.ddapi.cc/api.php/provide/vod/at/json",
+    "name": "🔞滴滴资源",
+    "noHistory": true,
+    "isLock": true
+  },
+  {
+    "api": "https://www.jingpinx.com/api.php/provide/vod/",
+    "name": "🔞精品资源",
+    "noHistory": true,
+    "isLock": true
+  }
+]
