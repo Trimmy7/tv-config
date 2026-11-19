@@ -33,9 +33,9 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git add vod.json live.txt
+          git add vod.json live.txt live_base.txt scripts/
           if git diff --staged --quiet; then
-            echo "No changes detected in vod.json or live.txt. Skipping commit."
+            echo "No changes detected. Skipping commit."
           else
             git commit -m "chore(auto): update vod and live sources [$(date +'%Y-%m-%d %H:%M:%S')]"
             git push origin main

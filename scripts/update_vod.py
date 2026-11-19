@@ -12,6 +12,7 @@ TVBox / 影视仓 / OK影视 自动化采集源测活、测速与直播源保活
 
 import json
 import ssl
+import sys
 import time
 import urllib.error
 import urllib.request
@@ -273,34 +274,13 @@ LIVE_CONFIG = [
 
 
 def update_live_sources():
-    """从主流活跃的测速项目自动拉取最新存活的 IPv4 电视直播源并同步更新 live.txt"""
-    print("\n📡 开始同步最新电视直播源 (纯净 IPv4 直连)...")
-    sources = [
-        "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.txt",
-        "https://cdn.jsdelivr.net/gh/Guovin/iptv-api@gd/output/result.txt",
-        "https://live.zbds.top/tv/iptv4.txt"
-    ]
-
-    ctx = ssl.create_default_context()
-    ctx.check_hostname = False
-    ctx.verify_mode = ssl.CERT_NONE
-    headers = {"User-Agent": "Mozilla/5.0"}
-
-    for u in sources:
-        try:
-            req = urllib.request.Request(u, headers=headers)
-            with urllib.request.urlopen(req, timeout=6, context=ctx) as resp:
-                if resp.status == 200:
-                    data = resp.read().decode("utf-8", errors="ignore")
-                    if len(data) > 10000 and "CCTV" in data:
-                        with open(OUTPUT_LIVE, "w", encoding="utf-8") as f:
-                            f.write(data)
-                        print(f"✅ 成功从 {u} 同步最新直播源 ({len(data)} 字节) 至 {OUTPUT_LIVE}")
-                        return
-        except Exception as e:
-            print(f"⚠️ 拉取直播源 {u} 失败: {e}")
-
-    print("ℹ️ 未能拉取到新直播源，保留原有 live.txt")
+    """执行 IPTV 智能冷热双池融合引擎 (以 live_base.txt 4700+ 底库为骨架热注入)"""
+    import subprocess
+    merge_script = REPO_ROOT / "scripts" / "merge_live.py"
+    try:
+        subprocess.run([sys.executable, str(merge_script)], check=True)
+    except Exception as e:
+        print(f"⚠️ merge_live.py 执行异常: {e}")
 
 
 def check_site(site: dict) -> dict | None:
