@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-TVBox / 影视仓 / OK影视 自动化采集源测活、测速与智能备用降级脚本
+TVBox / 影视仓 / OK影视 自动化采集源测活、测速与直播源保活脚本
 特性：
-1. 采用【多节点智能降级】机制：每个主流资源站配置多组活跃镜像与 http/https 双协议候选；
-2. 并发探测：解决国内采集站 SSL 握手超时、主域被墙与频繁换域问题；
-3. 严格校验：HTTP 200 + 有效 JSON + 非空视频列表；
-4. 延迟升序排序：确保电视端始终优先从当前响应最快的节点拉取。
+1. 点播源【多节点智能降级】：每个主流切片大站配置多组活跃镜像与 http/https 双协议候选，秒级测活优选；
+2. 直播源【自动拉取与保活】：同步主流自动化测速存活的超清 IPv4 直播源至 live.txt；
+3. 一体化注入：在 vod.json 中直接内置 lives 直播配置，免除电视端单独配置直播的麻烦；
+4. 延迟升序排序：确保电视端始终优先从响应最快的节点拉取。
 """
 
 import json
@@ -22,7 +22,8 @@ from pathlib import Path
 ENDPOINT_TIMEOUT_SEC = 2.8   # 单个节点探测超时（秒）
 MAX_WORKERS = 12            # 并发检测站点数
 REPO_ROOT = Path(__file__).resolve().parent.parent
-OUTPUT_FILE = REPO_ROOT / "vod.json"
+OUTPUT_VOD = REPO_ROOT / "vod.json"
+OUTPUT_LIVE = REPO_ROOT / "live.txt"
 
 # 通用分类过滤（纯净精选常规分类）
 STANDARD_CATEGORIES = [
@@ -242,6 +243,65 @@ DEFAULT_RULES = [
     }
 ]
 
+# 直播源配置（集成 IPv4 高清无广告源，含 EPG 节目预告与 Logo）
+LIVE_CONFIG = [
+    {
+        "name": "⚡ 超清秒播电视 (自动保活/国内IPv4直连)",
+        "type": 0,
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/Trimmy7/tv-config/main/live.txt",
+        "playerType": 1,
+        "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+        "logo": "https://live.fanmingming.com/tv/{name}.png"
+    },
+    {
+        "name": "📡 个人聚合直播 (jsDelivr CDN备用)",
+        "type": 0,
+        "url": "https://cdn.jsdelivr.net/gh/Trimmy7/tv-config@main/live.txt",
+        "playerType": 1,
+        "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+        "logo": "https://live.fanmingming.com/tv/{name}.png"
+    },
+    {
+        "name": "🌐 纯净测速全量源 (备用线)",
+        "type": 0,
+        "url": "https://cdn.jsdelivr.net/gh/Guovin/iptv-api@gd/output/result.txt",
+        "playerType": 1,
+        "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+        "logo": "https://live.fanmingming.com/tv/{name}.png"
+    }
+]
+
+
+def update_live_sources():
+    """从主流活跃的测速项目自动拉取最新存活的 IPv4 电视直播源并同步更新 live.txt"""
+    print("\n📡 开始同步最新电视直播源 (纯净 IPv4 直连)...")
+    sources = [
+        "https://raw.githubusercontent.com/Guovin/iptv-api/gd/output/result.txt",
+        "https://cdn.jsdelivr.net/gh/Guovin/iptv-api@gd/output/result.txt",
+        "https://live.zbds.top/tv/iptv4.txt"
+    ]
+
+    ctx = ssl.create_default_context()
+    ctx.check_hostname = False
+    ctx.verify_mode = ssl.CERT_NONE
+    headers = {"User-Agent": "Mozilla/5.0"}
+
+    for u in sources:
+        try:
+            req = urllib.request.Request(u, headers=headers)
+            with urllib.request.urlopen(req, timeout=6, context=ctx) as resp:
+                if resp.status == 200:
+                    data = resp.read().decode("utf-8", errors="ignore")
+                    if len(data) > 10000 and "CCTV" in data:
+                        with open(OUTPUT_LIVE, "w", encoding="utf-8") as f:
+                            f.write(data)
+                        print(f"✅ 成功从 {u} 同步最新直播源 ({len(data)} 字节) 至 {OUTPUT_LIVE}")
+                        return
+        except Exception as e:
+            print(f"⚠️ 拉取直播源 {u} 失败: {e}")
+
+    print("ℹ️ 未能拉取到新直播源，保留原有 live.txt")
+
 
 def check_site(site: dict) -> dict | None:
     """
@@ -309,6 +369,7 @@ def build_config(valid_results: list) -> dict:
 
     return {
         "wallpaper": "https://tuapi.eees.cc/api.php?category=fengjing&type=302",
+        "lives": LIVE_CONFIG,
         "sites": sites_list,
         "rules": DEFAULT_RULES,
         "parses": [
@@ -342,10 +403,13 @@ def main():
 
     config = build_config(valid_results)
 
-    with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    with open(OUTPUT_VOD, "w", encoding="utf-8") as f:
         json.dump(config, f, ensure_ascii=False, indent=2)
 
-    print(f"💾 成功写入最新配置文件: {OUTPUT_FILE}")
+    print(f"💾 成功写入最新点播配置文件: {OUTPUT_VOD}")
+
+    # 同步更新直播源
+    update_live_sources()
 
 
 if __name__ == "__main__":
