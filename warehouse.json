@@ -1,0 +1,28 @@
+{
+  "urls": [
+    {
+      "name": "⚡ 自建秒播源 (每日自动优选)",
+      "url": "https://ghfast.top/https://raw.githubusercontent.com/Trimmy7/tv-config/main/vod.json"
+    },
+    {
+      "name": "⚡ 自建秒播源 (jsDelivr CDN备用)",
+      "url": "https://cdn.jsdelivr.net/gh/Trimmy7/tv-config@main/vod.json"
+    },
+    {
+      "name": "🐱 肥猫公用线路",
+      "url": "http://肥猫.live"
+    },
+    {
+      "name": "🍚 饭太硬线路",
+      "url": "http://fty.888484.xyz/tv"
+    },
+    {
+      "name": "🐟 摸鱼儿线路",
+      "url": "http://fish.y456y.com"
+    },
+    {
+      "name": "🌐 自建秒播源 (GitHub 直连)",
+      "url": "https://raw.githubusercontent.com/Trimmy7/tv-config/main/vod.json"
+    }
+  ]
+}

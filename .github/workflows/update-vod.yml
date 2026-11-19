@@ -1,0 +1,42 @@
+name: Auto Update VOD Sources
+
+on:
+  schedule:
+    # 每天 UTC 20:00 运行（对应北京时间次日凌晨 04:00）
+    - cron: '0 20 * * *'
+  workflow_dispatch: # 支持在 GitHub Actions 手动点击运行
+
+permissions:
+  contents: write # 必须具备写入权限以提交更新后的 vod.json
+
+jobs:
+  test-and-update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: 🐍 Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: ⚡ Run VOD SpeedTest & Generator
+        run: |
+          python3 scripts/update_vod.py
+
+      - name: 📤 Commit and Push if Changed
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add vod.json
+          if git diff --staged --quiet; then
+            echo "No changes detected in vod.json. Skipping commit."
+          else
+            git commit -m "chore(auto): update vod sources [$(date +'%Y-%m-%d %H:%M:%S')]"
+            git push origin main
+          fi
