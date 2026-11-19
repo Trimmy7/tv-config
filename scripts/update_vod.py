@@ -244,10 +244,18 @@ DEFAULT_RULES = [
     }
 ]
 
-# 直播源配置（集成 IPv4 高清无广告源，含 EPG 节目预告与 Logo）
+# 直播源配置（优先挂载中英日韩+FAST精选极速直播 live_plus.txt，并保留原版 live.txt）
 LIVE_CONFIG = [
     {
-        "name": "⚡ 超清秒播电视 (自动保活/国内IPv4直连)",
+        "name": "⚡ 精选极速直播 (中英日韩+FAST·已测速)",
+        "type": 0,
+        "url": "https://ghfast.top/https://raw.githubusercontent.com/Trimmy7/tv-config/main/live_plus.txt",
+        "playerType": 1,
+        "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
+        "logo": "https://live.fanmingming.com/tv/{name}.png"
+    },
+    {
+        "name": "📡 原版全量直播 (保留4800+)",
         "type": 0,
         "url": "https://ghfast.top/https://raw.githubusercontent.com/Trimmy7/tv-config/main/live.txt",
         "playerType": 1,
@@ -255,17 +263,17 @@ LIVE_CONFIG = [
         "logo": "https://live.fanmingming.com/tv/{name}.png"
     },
     {
-        "name": "📡 个人聚合直播 (jsDelivr CDN备用)",
+        "name": "⚡ 精选直播 (jsDelivr CDN备用)",
         "type": 0,
-        "url": "https://cdn.jsdelivr.net/gh/Trimmy7/tv-config@main/live.txt",
+        "url": "https://cdn.jsdelivr.net/gh/Trimmy7/tv-config@main/live_plus.txt",
         "playerType": 1,
         "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
         "logo": "https://live.fanmingming.com/tv/{name}.png"
     },
     {
-        "name": "🌐 纯净测速全量源 (备用线)",
+        "name": "📡 原版全量直播 (jsDelivr CDN备用)",
         "type": 0,
-        "url": "https://cdn.jsdelivr.net/gh/Guovin/iptv-api@gd/output/result.txt",
+        "url": "https://cdn.jsdelivr.net/gh/Trimmy7/tv-config@main/live.txt",
         "playerType": 1,
         "epg": "http://epg.51zmt.top:8000/api/diyp/?ch={name}&date={date}",
         "logo": "https://live.fanmingming.com/tv/{name}.png"
